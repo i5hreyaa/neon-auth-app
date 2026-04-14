@@ -40,32 +40,37 @@ export default function Home() {
           <h1 className="text-xl font-bold tracking-wide">AetherX</h1>
 
           <div className="hidden gap-8 text-sm text-white/80 md:flex">
-            <a href="#home" className="nav-link">Home</a>
-            <a href="#explore" className="nav-link">Explore</a>
-            <a href="#about" className="nav-link">About</a>
-            <a href="#stats" className="nav-link">Stats</a>
+            <a href="#home" className="nav-link">
+              Home
+            </a>
+            <a href="#explore" className="nav-link">
+              Explore
+            </a>
+            <a href="#about" className="nav-link">
+              About
+            </a>
+            <a href="#stats" className="nav-link">
+              Stats
+            </a>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex items-center gap-3">
             <Link
               href="/login"
-              className="outline-button rounded-full px-4 py-2 text-sm"
+              className="outline-button rounded-full px-5 py-2 text-sm font-medium"
             >
               Login
             </Link>
             <Link
               href="/signup"
-              className="neon-button rounded-full px-4 py-2 text-sm font-semibold text-white"
+              className="neon-button rounded-full px-5 py-2 text-sm font-semibold text-white"
             >
-              Get Started
+              Sign Up
             </Link>
           </div>
         </nav>
 
-        <section
-          id="home"
-          className="grid gap-8 lg:grid-cols-[1.5fr_0.9fr]"
-        >
+        <section id="home" className="grid gap-8 lg:grid-cols-[1.5fr_0.9fr]">
           <div className="glass-card rounded-[32px] p-8 md:p-10">
             <p className="mb-4 inline-block rounded-full border border-pink-400/30 px-4 py-1 text-sm text-pink-200">
               Creative AI Platform
@@ -87,20 +92,17 @@ export default function Home() {
                 href="/signup"
                 className="neon-button rounded-full px-6 py-3 font-semibold"
               >
-                Start Now
+                Create Account
               </Link>
-              <a
-                href="#about"
+              <Link
+                href="/login"
                 className="outline-button rounded-full px-6 py-3 text-white/85"
               >
-                Learn More
-              </a>
+                Login
+              </Link>
             </div>
 
-            <div
-              id="explore"
-              className="mt-10 grid gap-5 md:grid-cols-3"
-            >
+            <div id="explore" className="mt-10 grid gap-5 md:grid-cols-3">
               {featuredCards.map((card) => (
                 <div
                   key={card.title}
@@ -200,6 +202,36 @@ export default function Home() {
               alt="About AetherX"
               className="h-full min-h-[320px] w-full rounded-[24px] object-cover"
             />
+          </div>
+        </section>
+
+        <section className="mt-16 text-center">
+          <div className="glass-card mx-auto max-w-3xl rounded-[32px] p-10">
+            <h2 className="text-3xl font-bold">
+              Ready to build your{" "}
+              <span className="neon-text">digital workspace?</span>
+            </h2>
+
+            <p className="mt-4 text-white/70">
+              Join AetherX today and start organizing your ideas, tools, and
+              projects in one place.
+            </p>
+
+            <div className="mt-6 flex flex-wrap justify-center gap-4">
+              <Link
+                href="/signup"
+                className="neon-button rounded-full px-6 py-3 font-semibold"
+              >
+                Sign Up
+              </Link>
+
+              <Link
+                href="/login"
+                className="outline-button rounded-full px-6 py-3"
+              >
+                Login
+              </Link>
+            </div>
           </div>
         </section>
       </div>
