@@ -17,8 +17,7 @@ export default function LoginPage() {
               Enter your <span className="neon-text">creative workspace</span>
             </h1>
             <p className="mt-5 max-w-md text-white/70">
-              Log in to continue exploring tools, managing projects, and
-              accessing your personalized digital dashboard.
+              Log in to continue exploring tools, managing projects, and accessing your personalized digital dashboard.
             </p>
           </div>
 
@@ -50,12 +49,8 @@ export default function LoginPage() {
             <p className="text-sm uppercase tracking-[0.2em] text-white/45">
               Login
             </p>
-            <h2 className="mt-2 text-3xl font-bold">
-              Welcome back
-            </h2>
-            <p className="mt-3 text-white/65">
-              Log in to access your account.
-            </p>
+            <h2 className="mt-2 text-3xl font-bold">Welcome back</h2>
+            <p className="mt-3 text-white/65">Log in to access your account.</p>
 
             <form className="mt-8 space-y-5">
               <div>
@@ -90,7 +85,10 @@ export default function LoginPage() {
 
             <p className="mt-6 text-center text-sm text-white/55">
               Don’t have an account?{" "}
-              <Link href="/signup" className="text-purple-300 hover:text-pink-300">
+              <Link
+                href="/signup"
+                className="text-purple-300 transition hover:text-pink-300"
+              >
                 Create one
               </Link>
             </p>

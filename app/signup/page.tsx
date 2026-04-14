@@ -50,9 +50,7 @@ export default function SignupPage() {
             <p className="text-sm uppercase tracking-[0.2em] text-white/45">
               Sign Up
             </p>
-            <h2 className="mt-2 text-3xl font-bold">
-              Start your journey
-            </h2>
+            <h2 className="mt-2 text-3xl font-bold">Start your journey</h2>
             <p className="mt-3 text-white/65">
               Create an account to unlock your workspace.
             </p>
@@ -112,7 +110,10 @@ export default function SignupPage() {
 
             <p className="mt-6 text-center text-sm text-white/55">
               Already have an account?{" "}
-              <Link href="/login" className="text-purple-300 hover:text-pink-300">
+              <Link
+                href="/login"
+                className="text-purple-300 transition hover:text-pink-300"
+              >
                 Sign in
               </Link>
             </p>
