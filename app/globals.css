@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #07010f;
+  --foreground: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at top left, rgba(168, 85, 247, 0.22), transparent 25%),
+    radial-gradient(circle at top right, rgba(236, 72, 153, 0.16), transparent 20%),
+    radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.14), transparent 20%),
+    linear-gradient(135deg, #05030a, #090312 40%, #04020a 100%);
   color: var(--foreground);
+  min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(168, 85, 247, 0.22);
+  box-shadow:
+    0 0 20px rgba(168, 85, 247, 0.10),
+    0 0 40px rgba(59, 130, 246, 0.06),
+    inset 0 0 20px rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.neon-button {
+  background: linear-gradient(90deg, #7c3aed, #ec4899);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.45);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.neon-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 28px rgba(168, 85, 247, 0.75);
+}
+
+.neon-button:active {
+  transform: scale(0.98);
+}
+
+.outline-button {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.25s ease;
+}
+
+.outline-button:hover {
+  border-color: rgba(192, 132, 252, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+}
+
+.nav-link {
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.nav-link:hover {
+  color: #d8b4fe;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #c084fc, #ec4899);
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.card-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-8px);
+  border-color: rgba(192, 132, 252, 0.4);
+  box-shadow:
+    0 0 24px rgba(168, 85, 247, 0.16),
+    0 0 50px rgba(59, 130, 246, 0.08),
+    inset 0 0 20px rgba(255, 255, 255, 0.02);
+}
+
+.neon-text {
+  background: linear-gradient(90deg, #c084fc, #ec4899, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
