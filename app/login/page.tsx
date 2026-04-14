@@ -1,6 +1,38 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessage("");
+    setLoading(true);
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setMessage(error.message);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(false);
+    router.push("/dashboard");
+  };
+
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-10">
       <div className="absolute left-0 top-20 h-72 w-72 rounded-full bg-purple-600/25 blur-3xl" />
@@ -52,7 +84,7 @@ export default function LoginPage() {
             <h2 className="mt-2 text-3xl font-bold">Welcome back</h2>
             <p className="mt-3 text-white/65">Log in to access your account.</p>
 
-            <form className="mt-8 space-y-5">
+            <form onSubmit={handleLogin} className="mt-8 space-y-5">
               <div>
                 <label className="mb-2 block text-sm text-white/70">
                   Email Address
@@ -60,7 +92,10 @@ export default function LoginPage() {
                 <input
                   type="email"
                   placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition placeholder:text-white/30 focus:border-purple-400/50 focus:bg-white/8"
+                  required
                 />
               </div>
 
@@ -71,15 +106,23 @@ export default function LoginPage() {
                 <input
                   type="password"
                   placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition placeholder:text-white/30 focus:border-purple-400/50 focus:bg-white/8"
+                  required
                 />
               </div>
 
+              {message && (
+                <p className="text-sm text-pink-200">{message}</p>
+              )}
+
               <button
                 type="submit"
-                className="neon-button w-full rounded-2xl px-6 py-3 font-semibold text-white"
+                disabled={loading}
+                className="neon-button w-full rounded-2xl px-6 py-3 font-semibold text-white disabled:opacity-60"
               >
-                Login
+                {loading ? "Logging In..." : "Login"}
               </button>
             </form>
 

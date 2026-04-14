@@ -1,6 +1,52 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 export default function SignupPage() {
+  const router = useRouter();
+
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessage("");
+
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match.");
+      return;
+    }
+
+    setLoading(true);
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+        },
+      },
+    });
+
+    if (error) {
+      setMessage(error.message);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(false);
+    setMessage("Account created successfully. Please check your email or log in.");
+    router.push("/login");
+  };
+
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-10">
       <div className="absolute left-0 top-20 h-72 w-72 rounded-full bg-purple-600/25 blur-3xl" />
@@ -55,7 +101,7 @@ export default function SignupPage() {
               Create an account to unlock your workspace.
             </p>
 
-            <form className="mt-8 space-y-5">
+            <form onSubmit={handleSignup} className="mt-8 space-y-5">
               <div>
                 <label className="mb-2 block text-sm text-white/70">
                   Full Name
@@ -63,7 +109,10 @@ export default function SignupPage() {
                 <input
                   type="text"
                   placeholder="Enter your name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                   className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition placeholder:text-white/30 focus:border-purple-400/50 focus:bg-white/8"
+                  required
                 />
               </div>
 
@@ -74,7 +123,10 @@ export default function SignupPage() {
                 <input
                   type="email"
                   placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition placeholder:text-white/30 focus:border-purple-400/50 focus:bg-white/8"
+                  required
                 />
               </div>
 
@@ -85,7 +137,10 @@ export default function SignupPage() {
                 <input
                   type="password"
                   placeholder="Create a password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition placeholder:text-white/30 focus:border-purple-400/50 focus:bg-white/8"
+                  required
                 />
               </div>
 
@@ -96,15 +151,23 @@ export default function SignupPage() {
                 <input
                   type="password"
                   placeholder="Confirm your password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition placeholder:text-white/30 focus:border-purple-400/50 focus:bg-white/8"
+                  required
                 />
               </div>
 
+              {message && (
+                <p className="text-sm text-pink-200">{message}</p>
+              )}
+
               <button
                 type="submit"
-                className="neon-button w-full rounded-2xl px-6 py-3 font-semibold text-white"
+                disabled={loading}
+                className="neon-button w-full rounded-2xl px-6 py-3 font-semibold text-white disabled:opacity-60"
               >
-                Create Account
+                {loading ? "Creating Account..." : "Create Account"}
               </button>
             </form>
 
